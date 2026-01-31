@@ -7,6 +7,10 @@ import livereload from "rollup-plugin-livereload";
 import css from "rollup-plugin-css-only";
 import sveltePreprocess from "svelte-preprocess";
 import typescript from "@rollup/plugin-typescript";
+import dotenv from "dotenv";
+import replace from "@rollup/plugin-replace";
+
+dotenv.config();
 
 const production =
   process.env.PRODUCTION_ENV === "true" || !process.env.ROLLUP_WATCH;
@@ -41,6 +45,11 @@ export default {
     file: "public/build/bundle.js",
   },
   plugins: [
+    replace({
+      preventAssignment: true,
+      __API_BASE_URL__: JSON.stringify(process.env.API_BASE_URL),
+    }),
+    
     svelte({
       preprocess: sveltePreprocess({ sourceMap: !production, postcss: true }),
       compilerOptions: {

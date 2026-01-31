@@ -1,0 +1,22 @@
+version: "3.9"
+
+services:
+  backend:
+    image: semantra-backend
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: semantra-backend
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/app
+    environment:
+      - FLASK_ENV=development
+    command: >
+      gunicorn
+      -w 2
+      -b 0.0.0.0:8000
+      --timeout 120
+      --reload
+      server:app

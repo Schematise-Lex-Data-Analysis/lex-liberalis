@@ -51,14 +51,14 @@
 
     // Get text
     const textResponse = await fetch(
-      `/api/text?filename=${encodeURIComponent(file.filename)}`
+      `${API_BASE}/api/text?filename=${encodeURIComponent(file.filename)}`
     );
     tokens = await textResponse.json();
     text = tokens.join("");
 
     if (file.filetype === "pdf") {
       const pdfResponse = await fetch(
-        `/api/pdfpositions?filename=${encodeURIComponent(file.filename)}`
+        `${API_BASE}/api/pdfpositions?filename=${encodeURIComponent(file.filename)}`
       );
       pdfPositions = await pdfResponse.json();
     }
@@ -77,6 +77,8 @@
   let textView: TextView;
   let pdfView: PdfView;
   let searchBar: SearchBar;
+
+const API_BASE = __API_BASE_URL__;
 
   export function parseQuery(query: string): ParsedQuery[] {
     // Parse the query
@@ -144,7 +146,7 @@
       }
     }
 
-    const response = await fetch("/api/query", {
+    const response = await fetch(`${API_BASE}/api/query`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -161,7 +163,7 @@
   }
 
   onMount(async () => {
-    const filesResponse = await fetch("/api/files");
+    const filesResponse = await fetch(`${API_BASE}/api/files`);
     files = await filesResponse.json();
   });
 

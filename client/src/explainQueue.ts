@@ -9,6 +9,8 @@ export const explainDictionary = writable<ExplainDictionary>({});
 
 const explanationQueue: [HTMLElement, string][] = [];
 
+const API_BASE = __API_BASE_URL__;
+
 interface ExplainProps {
   filename: string;
   offset: [number, number];
@@ -76,7 +78,7 @@ export async function explain(body: string) {
     return existingResponse;
   }
 
-  const request = await fetch("/api/explain", {
+  const request = await fetch(`${API_BASE}/api/explain`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

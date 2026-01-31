@@ -62,7 +62,7 @@
 
   // Send file to the backend
   try {
-    const response = await fetch("http://127.0.0.1:5000/api/savefile/preview", {
+    const response = await fetch("http://127.0.0.1:8000/api/savefile/preview", {
       method: "POST",
       body: formData,
     });
